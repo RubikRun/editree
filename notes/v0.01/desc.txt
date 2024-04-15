@@ -1,0 +1,10 @@
+Version 0.01 of editree
+
+Version 0.01 is just a basic video player which plays a hardcoded video.
+It consists of:
+1. Rectangular area where the video is played, or a paused frame is shown
+2. Play/pause button
+3. Button for going to the beggining of the video
+4. Timeline with a movable playhead
+    4.1. Playhead moves with the progress of the video
+    4.2. When user clicks on the timeline the playhead goes to where they clicked moving the video's progress accordingly
