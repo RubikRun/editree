@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class VideoPlayerWidget;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -10,5 +12,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private:
+    void setupUi();
+
+    VideoPlayerWidget *videoPlayerWidget = nullptr;
 };
 #endif // MAINWINDOW_H
