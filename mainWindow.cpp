@@ -12,6 +12,6 @@ MainWindow::~MainWindow() {}
 
 void MainWindow::setupUi()
 {
-    videoPlayerWidget = new VideoPlayerWidget("VideoPlayerWidget", this);
+    videoPlayerWidget = new VideoPlayerWidget(QUrl::fromLocalFile("C:/dev/editree/videos/jluch.mp4"), this);
     setCentralWidget(videoPlayerWidget);
 }

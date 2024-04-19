@@ -3,6 +3,7 @@
 
 build/*
 .vscode/*
+videos/*
 
 *~
 *.autosave
