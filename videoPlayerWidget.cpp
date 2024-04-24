@@ -33,6 +33,8 @@ void VideoPlayerWidget::setupUi() {
 
     videoPlayerControlsWidget = new VideoPlayerControlsWidget(this);
     connect(videoPlayerControlsWidget->getTimelineSlider(), &QSlider::sliderMoved, this, &VideoPlayerWidget::onTimelineSliderMoved);
+    connect(videoPlayerControlsWidget->getTimelineSlider(), &QSlider::sliderPressed, this, &VideoPlayerWidget::onTimelineSliderPressed);
+    connect(videoPlayerControlsWidget->getTimelineSlider(), &QSlider::sliderReleased, this, &VideoPlayerWidget::onTimelineSliderReleased);
     layout->addWidget(videoPlayerControlsWidget);
     layout->setAlignment(videoPlayerControlsWidget, Qt::AlignHCenter | Qt::AlignTop);
 
@@ -71,14 +73,26 @@ void VideoPlayerWidget::onMetadataChanged()
 
 void VideoPlayerWidget::onMediaPlayerPositionChanged(quint64 position)
 {
-    const float progress = float(position) / float(mediaPlayer->duration());
-    videoPlayerControlsWidget->setTimelineProgress(progress);
+    if (!timelineLocked) {
+        const float progress = float(position) / float(mediaPlayer->duration());
+        videoPlayerControlsWidget->setTimelineProgress(progress);
+    }
 }
 
 void VideoPlayerWidget::onTimelineSliderMoved(int value)
 {
     const float progress = VideoPlayerControlsWidget::calculateProgress(value);
     setVideoProgress(progress);
+}
+
+void VideoPlayerWidget::onTimelineSliderPressed()
+{
+    timelineLocked = true;
+}
+
+void VideoPlayerWidget::onTimelineSliderReleased()
+{
+    timelineLocked = false;
 }
 
 void VideoPlayerWidget::onPlayPausePressed()

@@ -35,10 +35,14 @@ private:
 
     QUrl videoFileUrl;
 
+    bool timelineLocked = false;
+
 private slots:
     void onMetadataChanged();
     void onMediaPlayerPositionChanged(quint64 position);
     void onTimelineSliderMoved(int value);
+    void onTimelineSliderPressed();
+    void onTimelineSliderReleased();
 };
 
 #endif // VIDEOPLAYERWIDGET_H
