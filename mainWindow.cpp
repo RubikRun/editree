@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    resize(640, 480);
+    resize(1300, 860);
     setupUi();
 }
 

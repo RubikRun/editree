@@ -1,4 +1,5 @@
 #include "videoPlayerWidget.h"
+#include "videoPlayerControlsWidget.h"
 
 #include <QVBoxLayout>
 #include <QMediaPlayer>
@@ -19,6 +20,9 @@ void VideoPlayerWidget::setupUi() {
 
     createVideoWidget();
     layout->addWidget(videoWidget);
+
+    videoPlayerControlsWidget = new VideoPlayerControlsWidget(this);
+    layout->addWidget(videoPlayerControlsWidget);
 
     setLayout(layout);
 }
@@ -48,5 +52,14 @@ void VideoPlayerWidget::onMetadataChanged()
         if (resolution.width() > 0 && resolution.height() > 0) {
             videoWidget->setFixedSize(resolution);
         }
+    }
+}
+
+void VideoPlayerWidget::onPlayPausePressed()
+{
+    switch(mediaPlayer->playbackState()) {
+        case QMediaPlayer::PlayingState: mediaPlayer->pause(); break;
+        case QMediaPlayer::PausedState: mediaPlayer->play(); break;
+        case QMediaPlayer::StoppedState:;
     }
 }
