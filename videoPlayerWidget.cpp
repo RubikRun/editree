@@ -17,12 +17,16 @@ VideoPlayerWidget::VideoPlayerWidget(const QUrl &videoFileUrl, QWidget *parent)
 void VideoPlayerWidget::setupUi() {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setSizeConstraint(QLayout::SetMinimumSize);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(10);
 
     createVideoWidget();
     layout->addWidget(videoWidget);
+    layout->setAlignment(videoWidget, Qt::AlignCenter);
 
     videoPlayerControlsWidget = new VideoPlayerControlsWidget(this);
     layout->addWidget(videoPlayerControlsWidget);
+    layout->setAlignment(videoPlayerControlsWidget, Qt::AlignHCenter | Qt::AlignTop);
 
     setLayout(layout);
 }
@@ -51,6 +55,7 @@ void VideoPlayerWidget::onMetadataChanged()
         QSize resolution = resolutionValue.toSize();
         if (resolution.width() > 0 && resolution.height() > 0) {
             videoWidget->setFixedSize(resolution);
+            videoPlayerControlsWidget->setTimelineWidth(resolution.width());
         }
     }
 }

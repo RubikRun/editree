@@ -1,20 +1,32 @@
 #include "videoPlayerControlsWidget.h"
 #include "videoPlayerWidget.h"
 
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QPushButton>
+#include <QSlider>
 
 VideoPlayerControlsWidget::VideoPlayerControlsWidget(QWidget *parent)
-    : QWidget{parent}
+    : QWidget(parent)
+    , parentVideoPlayer(dynamic_cast<VideoPlayerWidget*>(parent))
     , playIcon("C:/dev/editree/icons/play_button.png")
     , pauseIcon("C:/dev/editree/icons/pause_button.png")
 {
     setupUi();
 }
 
+void VideoPlayerControlsWidget::setTimelineWidth(int width)
+{
+    timelineSlider->setFixedWidth(width);
+}
+
 void VideoPlayerControlsWidget::setupUi()
 {
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+
+    timelineSlider = new QSlider(Qt::Horizontal, this);
+    layout->addWidget(timelineSlider);
 
     playPauseButton = new QPushButton(pauseIcon, "", this);
     playPauseButton->setIconSize(PLAY_PAUSE_BUTTONS_SIZE);
@@ -30,10 +42,7 @@ void VideoPlayerControlsWidget::onPlayPausePressed()
     playPauseButton->setIcon(isPlaying ? playIcon : pauseIcon);
     isPlaying = !isPlaying;
 
-    // Try to cast the parent to VideoPlayerWidget.
-    // Use dynamic_cast to detect if the parent can be casted at all.
-    // If parent cannot be casted, or is null, we will not call its slot.
-    if (VideoPlayerWidget *parentCasted = dynamic_cast<VideoPlayerWidget*>(parent())) {
-        parentCasted->onPlayPausePressed();
+    if (parentVideoPlayer) {
+        parentVideoPlayer->onPlayPausePressed();
     }
 }
