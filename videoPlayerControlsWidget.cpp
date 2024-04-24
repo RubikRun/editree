@@ -19,6 +19,22 @@ void VideoPlayerControlsWidget::setTimelineWidth(int width)
     timelineSlider->setFixedWidth(width);
 }
 
+void VideoPlayerControlsWidget::setTimelineProgress(float progress)
+{
+    timelineSlider->setValue(int(progress * float(TIMELINE_SLIDER_POSITIONS_COUNT)));
+}
+
+const QSlider *VideoPlayerControlsWidget::getTimelineSlider() const
+{
+    return timelineSlider;
+}
+
+float VideoPlayerControlsWidget::calculateProgress(int value)
+{
+    const float progress = float(value) / float(TIMELINE_SLIDER_POSITIONS_COUNT);
+    return progress;
+}
+
 void VideoPlayerControlsWidget::setupUi()
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -26,6 +42,8 @@ void VideoPlayerControlsWidget::setupUi()
     layout->setSpacing(0);
 
     timelineSlider = new QSlider(Qt::Horizontal, this);
+    timelineSlider->setMinimum(0);
+    timelineSlider->setMaximum(TIMELINE_SLIDER_POSITIONS_COUNT);
     layout->addWidget(timelineSlider);
 
     playPauseButton = new QPushButton(pauseIcon, "", this);

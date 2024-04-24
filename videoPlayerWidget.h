@@ -18,6 +18,8 @@ class VideoPlayerWidget : public QWidget
 public:
     explicit VideoPlayerWidget(const QUrl &videoFileUrl, QWidget *parent = nullptr);
 
+    void setVideoProgress(float progress);
+
 public slots:
     void onPlayPausePressed();
 
@@ -35,6 +37,8 @@ private:
 
 private slots:
     void onMetadataChanged();
+    void onMediaPlayerPositionChanged(quint64 position);
+    void onTimelineSliderMoved(int value);
 };
 
 #endif // VIDEOPLAYERWIDGET_H

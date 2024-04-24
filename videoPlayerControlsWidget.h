@@ -18,6 +18,9 @@ public:
     explicit VideoPlayerControlsWidget(QWidget *parent = nullptr);
 
     void setTimelineWidth(int width);
+    void setTimelineProgress(float progress);
+    const QSlider *getTimelineSlider() const;
+    static float calculateProgress(int value);
 
 private:
     void setupUi();
@@ -37,6 +40,7 @@ private slots:
 
 private:
     static constexpr QSize PLAY_PAUSE_BUTTONS_SIZE = QSize(40, 40);
+    static const int TIMELINE_SLIDER_POSITIONS_COUNT = 1000;
 };
 
 #endif // VIDEOPLAYERCONTROLSWIDGET_H
